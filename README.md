@@ -1,9 +1,9 @@
 # Reimbursement System
 
--Project Description
+# Project Description
   -Project 1 Is a Employee Reimbursement System . This Program allows Employees To login and submit reimbursement requests as well as allowing managers to view and approve or 	    deny any reimbursement Requests.
 
--Technologies Used
+# Technologies Used
   -Java -version 1.8
   -JavaScript
   -HTML -version 5
@@ -18,19 +18,19 @@
 
 
 
--Features
+# Features
   -As an Employee I can Login to the Employee Reimbursement Submission Page
   -As an Employee I can type the reason and amount of my expense and submit a request.
   -As a Manager I can Login and View any Pending Requests.
--To Do List
+# To Do List
   -Allow Manager to Approve And Deny Requests
   -Fully Implement Statistics Page In order to see Reimbursement Statistics.
   
 
--Getting Started
+# Getting Started
   -git clone https://github.com/krisjoshi96/Project-1-Final.git
  
- -Enviornment Setup
+ # Enviornment Setup
     -Open Eclipse 4.21
     -Create Maven Project 
     -Dependencies Needed
@@ -81,6 +81,6 @@
 
 
 
--Usage
+# Usage
   -To Use this program simply run it on eclipse IDE .Once you have started running the application hibernate will automatically create your data base tables, Open your localhost   on the specified port on your browser and begin using the application.      
      
