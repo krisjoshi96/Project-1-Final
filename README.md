@@ -1,7 +1,7 @@
 # Reimbursement System
 
 -Project Description
-  -Project 1 Is a Employee Reimbursement System . This Program allows Employees To login and submit reimbursement requests as well as allowing managers to view and approve or deny   any reimbursement Requests.
+  -Project 1 Is a Employee Reimbursement System . This Program allows Employees To login and submit reimbursement requests as well as allowing managers to view and approve or 	    deny any reimbursement Requests.
 
 -Technologies Used
   -Java -version 1.8
@@ -34,7 +34,7 @@
     -Open Eclipse 4.21
     -Create Maven Project 
     -Dependencies Needed
-      -<dependency>
+      		-<dependency>
 			<groupId>io.javalin</groupId>
 			<artifactId>javalin</artifactId>
 			<version>4.1.1</version>
