@@ -34,7 +34,9 @@
     -Open Eclipse 4.21
     -Create Maven Project 
     -Dependencies Needed
-      		-<dependency>
+      		
+		
+		 <dependency>
 			<groupId>io.javalin</groupId>
 			<artifactId>javalin</artifactId>
 			<version>4.1.1</version>
@@ -71,7 +73,14 @@
 			<artifactId>postgresql</artifactId>
 			<version>42.2.23</version>
 	  	</dependency>
-    -Create hibernate.cfg.xml file and enter database credentials
+    
+    
+
+
+	-Create hibernate.cfg.xml file and enter database credentials
+
+
+
 -Usage
   -To Use this program simply run it on eclipse IDE .Once you have started running the application hibernate will automatically create your data base tables, Open your localhost   on the specified port on your browser and begin using the application.      
      
