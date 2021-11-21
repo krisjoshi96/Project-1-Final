@@ -28,7 +28,7 @@
   
 
 -Getting Started
-  -git clone
+  -git clone https://github.com/krisjoshi96/Project-1-Final.git
  
  -Enviornment Setup
     -Open Eclipse 4.21
