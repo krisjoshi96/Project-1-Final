@@ -1,4 +1,4 @@
-# Reimbursement System
+# Employee Reimbursement System
 
 # Project Description
   -Project 1 Is a Employee Reimbursement System . This Program allows Employees To login and submit reimbursement requests as well as allowing managers to view and approve or 	    deny any reimbursement Requests.
