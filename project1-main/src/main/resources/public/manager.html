@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Manager</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+	<div class="container" style="width:50%">
+		<h2 style="color:DarkBlue">Welcome To Employee Reimbursement System Manager Portal</h2>
+		<h3  style="color:DarkBlue" id="name"> Name of Manager:</h3>
+	</div>
+	<div style="text-align: right; padding-right:10%">
+		
+		<a href="/" style="padding-left: 10px; font-weight: light">Logout</a>
+
+
+	</div>
+	<div class="container" id="show-expenses">
+		<h2 style="color:DarkBlue" > Pending Reimbursement Requests</h2>
+		<div class="card"> 
+			<div class="card-body">
+				<table class="table table-hover" id="table1">
+					<thead class="thead-dark">
+						<tr>
+							<th style="color:RoyalBlue">Select</th>
+							<th style="color:RoyalBlue">Employee Name</th>
+							<th style="color:RoyalBlue">Reason Of Request</th>
+							<th style="color:RoyalBlue">Amount Submitted($)</th>
+							<th style="color:RoyalBlue">Status Of Request</th>
+							<th style="color:RoyalBlue">Date & Time</th>
+						</tr>
+					</thead>
+					<tbody id="tdata1">
+						<tr></tr>
+					</tbody>
+				</table>
+
+				<div class="container" style="width:50%;  text-align: center;">
+					<button type="submit" class="btn btn-success" onclick="updateStatus('Approved')">Approve</button>
+					<button type="submit" class="btn btn-danger" onclick="updateStatus('Denied')">Deny</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container" id="approved-expenses">
+		<h2 style="color:DarkBlue">Approved Requests</h2>
+		<div class="card">
+			<div class="card-body">
+				<table class="table table-hover" id="table2">
+					<thead>
+						<tr>
+							<th style="color:RoyalBlue">Employee Name</th>
+							<th style="color:RoyalBlue">Reason Of Request</th>
+							<th style="color:RoyalBlue">Amount Submitted($)</th>
+							<th style="color:RoyalBlue">Status</th>
+							<th style="color:RoyalBlue">Date & Time</th>
+						</tr>
+					</thead>
+					<tbody id="tdata2">
+						<tr></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="container" id="approved-expenses">
+		<h2 style="color:DarkBlue">Denied Requests</h2>
+		<div class="card">
+			<div class="card-body">
+				<table class="table table-hover" id="table3">
+					<thead>
+						<tr>
+							<th style="color:RoyalBlue">Employee Name</th>
+							<th style="color:RoyalBlue">Reason For Denial</th>
+							<th style="color:RoyalBlue">Amount Submitted($)</th>
+							<th style="color:RoyalBlue">Status</th>
+							<th style="color:RoyalBlue">Date & Time</th>
+						</tr>
+					</thead>
+					<tbody id="tdata3">
+						<tr></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+
+		const getName = () => {
+			axios.get('http://localhost:7777/employee')
+				.then(response => {
+					console.log('response: ', response);
+					const name = response.data;
+
+					document.querySelector('#name').innerHTML = " Name Of Manager: " + name;
+
+				})
+				.catch(error => console.error(error));
+		};
+
+		getName();
+
+		//Creating and putting data to the Tables
+		const createTr = (expense, tblid) => {
+			const tr = document.createElement('tr');
+			// add dinamic id to tr
+			tr.id = `tr-${expense.id}`;
+			// add user details to `td`
+			if (tblid === '#table1') {
+				const td1 = document.createElement('td');
+				const ch = document.createElement('input');
+				ch.type = 'checkbox';
+				ch.id = `${expense.id}`;
+				td1.appendChild(ch);
+				tr.appendChild(td1);
+			}
+
+
+			const td2 = document.createElement('td');
+			td2.textContent = `${expense.employeeId}`;
+			tr.appendChild(td2);
+
+			const td3 = document.createElement('td');
+			td3.textContent = `${expense.reason}`;
+			tr.appendChild(td3);
+
+			const td4 = document.createElement('td');
+			td4.textContent = `${expense.amount}`;
+			tr.appendChild(td4);
+
+			const td5 = document.createElement('td');
+			td5.textContent = `${expense.status}`;
+			tr.appendChild(td5);
+
+			const td6 = document.createElement('td');
+			td6.textContent = `${expense.timestamp}`;
+			tr.appendChild(td6);
+
+			return tr;
+		};
+
+		const appendToDOM = (expenses, tblid) => {
+			const tbody = document.querySelector(tblid);
+			//iterate over all users
+			expenses.forEach(expense => {
+				tbody.appendChild(createTr(expense, tblid));
+			});
+		};
+
+		const fetchExpenses = (status, tblid) => {
+			axios.get('http://localhost:7777/mexpenses?status=' + status)
+				.then(response => {
+					console.log('response: ', response);
+					const expenses = response.data;
+					console.log('GET list expenses: ', expenses);
+					// append to DOM
+					appendToDOM(expenses, tblid);
+				})
+				.catch(error => console.error(error));
+		};
+
+		fetchExpenses('Pending', '#table1');
+		fetchExpenses('Approved', '#table2');
+		fetchExpenses('Denied', '#table3');
+
+		// Update status of a pending expense working on onclick 
+		const updateStatus = (status) => {
+			//Reference the Table.
+			var grid = document.getElementById("table1");
+
+			//Reference the CheckBoxes in Table.
+			var checkBoxes = grid.getElementsByTagName("input");
+			let ids = [];
+			//Loop through the CheckBoxes.
+			for (var i = 0; i < checkBoxes.length; i++) {
+				if (checkBoxes[i].checked) {
+					ids.push(checkBoxes[i].id);
+				}
+			}
+
+			// Refreshing the page after each status update
+			axios.post('http://localhost:7777/update', {status: status, ids: ids})
+				.then(response => {
+					console.log('response: ', response);
+					window.location.href = '/manager.html';
+
+				})
+				.catch(error => console.error(error));
+		};
+
+	</script>
+
+</body>
+
+</html>
